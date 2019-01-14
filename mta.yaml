@@ -1,7 +1,7 @@
 ID: tinyworld
 _schema-version: '2.0'
 description: Tinyworld project for GFN
-version: 2.0.0
+version: 3.0.0
 
 modules:
 - name: tinydb
@@ -13,9 +13,10 @@ modules:
 - name: tinyjs
   type: nodejs
   path: tinyjs
-  requires: 
+  requires:
     - name: tinydb 
     - name: hdi-container
+    - name: tiny_uaa
   provides:
     - name: tinyjs_api
       properties:
@@ -31,7 +32,13 @@ modules:
      properties:
        name: tinyjs_be
        url: ~{service_url}
+       forwardAuthToken: true
+   - name: tiny_uaa
 
 resources:
  - name: hdi-container
    type: com.sap.xs.hdi-container
+ - name: tiny_uaa
+   type: com.sap.xs.uaa
+   parameters:
+     path: ./xs-security.json
